@@ -27,9 +27,13 @@ class KamigoController < ApplicationController
     puts "===這是設定後的response.body:#{response.body}==="
   end
 
-    def sent_request
+  def sent_request
     uri = URI('http://localhost:3000/kamigo/response_body')
-    response = Net::HTTP.get(uri)
-    render plain: response
+    response = Net::HTTP.get(uri).force_encoding("UTF-8")
+    render plain: translate_to_korean(response)
+  end
+
+  def translate_to_korean(message)
+    "#{message}油~"
   end
 end
